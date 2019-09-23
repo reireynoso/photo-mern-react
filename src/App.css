@@ -13,10 +13,24 @@
   color: white;
 }
 
-.pusher {
-  border-radius: 0px !important
+.nav-bar {
+  background-color: #282c34;
+  height: 10vh;
+}
+
+#nav-bar-container {
+  display: flex;
+  justify-content: space-between;
+  line-height: 10vh;
 }
 
 #pic-container {
   padding: 40px;
+}
+
+.custom-form {
+  margin-top: 20px;
+  padding: 40px;
+  border: 2px solid black;
+  border-radius: 50px;
 }
