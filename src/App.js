@@ -37,6 +37,18 @@ class App extends Component{
         genres: data
       })
     })
+
+    fetch('http://localhost:3000/photos')
+    .then(res => res.json())
+    .then(data => {
+      this.setState({
+        photos: data
+      })
+    })
+  }
+
+  handleAddNewPhoto = (input) => {
+    console.log(input)
   }
 
   handleNewPhotoForm = () => {
@@ -78,7 +90,7 @@ class App extends Component{
             }
           </Fragment>
           :
-          <MainComponent genres={this.state.genres} currentUser={this.state.currentUser} photos={this.state.photos} newPhotoForm={this.state.newPhotoForm}/>   
+          <MainComponent handleAddNewPhoto={this.handleAddNewPhoto} photos={this.state.photos} genres={this.state.genres} currentUser={this.state.currentUser} photos={this.state.photos} newPhotoForm={this.state.newPhotoForm}/>   
         }
         {/* <div id="pic-container" className="ui container">
         <div class="ui three column grid">
