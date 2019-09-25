@@ -3,12 +3,15 @@ import './App.css';
 import NavBar from './components/NavBar'
 import SignUpForm from './components/SignUpForm'
 import LoginForm from './components/LoginForm';
+import MainComponent from './components/MainComponent'
 
 class App extends Component{
   state = {
     currentUser: {},
     photos: [],
-    viewPage: 'signUp'
+    genres: [],
+    viewPage: 'signUp',
+    newPhotoForm: false
   }
   
   componentDidMount = () => {
@@ -26,6 +29,20 @@ class App extends Component{
         })
       })
     }
+
+    fetch("http://localhost:3000/genres")
+    .then(resp => resp.json())
+    .then(data => {
+      this.setState({
+        genres: data
+      })
+    })
+  }
+
+  handleNewPhotoForm = () => {
+    this.setState({
+      newPhotoForm: !this.state.newPhotoForm
+    })
   }
 
   handleCurrentUser = (user) => {
@@ -49,10 +66,10 @@ class App extends Component{
   }
 
   render(){
-    // console.log(this.state.viewPage === 'login')
+    // console.log(this.state)
     return (
     <div className="App">
-        <NavBar handleLogOut={this.handleLogOut} handleViewPageClick={this.handleViewPageClick} currentUser={this.state.currentUser}/>
+        <NavBar handleNewPhotoForm={this.handleNewPhotoForm} handleLogOut={this.handleLogOut} handleViewPageClick={this.handleViewPageClick} currentUser={this.state.currentUser}/>
         {
           Object.keys(this.state.currentUser).length === 0 ?
           <Fragment>
@@ -61,10 +78,7 @@ class App extends Component{
             }
           </Fragment>
           :
-          <div>
-            Photo container
-          </div>
-          
+          <MainComponent genres={this.state.genres} currentUser={this.state.currentUser} photos={this.state.photos} newPhotoForm={this.state.newPhotoForm}/>   
         }
         {/* <div id="pic-container" className="ui container">
         <div class="ui three column grid">

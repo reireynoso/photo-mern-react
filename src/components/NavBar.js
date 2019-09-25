@@ -20,7 +20,7 @@ export default class NavBar extends Component {
                   {
                     Object.keys(this.props.currentUser).length !== 0 ? 
                     <Fragment>
-                      <div className="ui inverted button">
+                      <div className="ui inverted button" onClick={() => this.props.handleNewPhotoForm()}>
                           +
                       </div>
 
