@@ -5,10 +5,12 @@ export default class NewPhotoForm extends Component {
         name: "",
         description: "",
         likes: 0,
-        image: "",
+        // image: "",
         owner: this.props.currentUser._id,
         genre: ""
     }
+
+    fileInput = React.createRef();
 
     handleGenreSelect = (e) => {
         // console.log(e.target.value)
@@ -22,11 +24,18 @@ export default class NewPhotoForm extends Component {
         this.setState({
             [e.target.name]: e.target.value
         })
+        // console.log(this.fileInput.current.files[0])
     }
 
     handleOnSubmit = (e) => {
         e.preventDefault()
-        let formData = new FormData(this.state)
+        let formData = new FormData()
+        formData.append('name', this.state.name)
+        formData.append('description', this.state.description)
+        formData.append('likes', this.state.likes)
+        formData.append('image', this.fileInput.current.files[0])
+        formData.append('genre', this.state.genre)
+        // console.log(formData)
         this.props.handleAddNewPhoto(formData)
     }
 
@@ -47,7 +56,7 @@ export default class NewPhotoForm extends Component {
 
                     <div className="field">
                         <label>Image</label>
-                        <input type="file" name="image" required onChange={this.handleOnChange} value={this.state.image}/>
+                        <input type="file" name="image" required ref={this.fileInput} value={this.state.image}/>
                     </div>
 
                     <div className="field">
