@@ -49,6 +49,25 @@ class App extends Component{
 
   handleAddNewPhoto = (input) => {
     console.log(input)
+    const token = localStorage.getItem("token")
+    // if(token){
+    //   fetch("http://localhost:3000/photos", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "Accept": "application/json",
+    //     "Authorization": `Bearer ${token}`
+    //   },
+    //   body: JSON.stringify(input)
+    // })
+    // .then(resp => resp.json())
+    // .then(data => {
+    //   console.log(data)
+    //   this.setState({
+    //     photos: [...this.state.photos, data]
+    //   })
+    // })
+    // }
   }
 
   handleNewPhotoForm = () => {
@@ -78,7 +97,7 @@ class App extends Component{
   }
 
   render(){
-    // console.log(this.state)
+    console.log(this.state)
     return (
     <div className="App">
         <NavBar handleNewPhotoForm={this.handleNewPhotoForm} handleLogOut={this.handleLogOut} handleViewPageClick={this.handleViewPageClick} currentUser={this.state.currentUser}/>

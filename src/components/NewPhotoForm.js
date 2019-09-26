@@ -26,7 +26,8 @@ export default class NewPhotoForm extends Component {
 
     handleOnSubmit = (e) => {
         e.preventDefault()
-        this.props.handleAddNewPhoto(this.state)
+        let formData = new FormData(this.state)
+        this.props.handleAddNewPhoto(formData)
     }
 
     render() {
