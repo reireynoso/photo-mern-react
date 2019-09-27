@@ -1,9 +1,17 @@
 import React from 'react'
 
 export default function PhotoCard(props){
+    console.log(props)
     return (
-        <div>
-            <h1>Hey</h1>
+        <div className="column">
+            <div className="ui fluid card">
+            <div className="image">
+                <img src={props.photo.image}/>
+            </div>
+            <div className="content">
+                <a className="header">Daniel Louise</a>
+            </div>
+            </div>
         </div>
     )
 }
