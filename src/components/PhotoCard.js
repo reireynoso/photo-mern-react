@@ -9,7 +9,7 @@ export default function PhotoCard(props){
                 <img src={props.photo.image}/>
             </div>
             <div className="content">
-                <a className="header">Daniel Louise</a>
+                <a className="header">{props.photo.owner.name}</a>
             </div>
             </div>
         </div>
