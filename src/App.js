@@ -48,7 +48,7 @@ class App extends Component{
   }
 
   handleAddNewPhoto = (input) => {
-    console.log(input)
+    // console.log(input)
     const token = localStorage.getItem("token")
     if(token){
       fetch("http://localhost:3000/photos", {

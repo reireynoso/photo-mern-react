@@ -9,7 +9,7 @@ export default class NavBar extends Component {
           <div id="nav-bar-container" className="ui container">
               <div className="leftMenu">
                     <div className="ui inverted button">
-                      View Categories
+                      Photo Uploader
                     </div>
 
                     {/* <div className="ui inverted button">
