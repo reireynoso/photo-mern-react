@@ -23,11 +23,7 @@ export default class NavBar extends Component {
                       <div className="ui inverted button" onClick={() => this.props.handleNewPhotoForm()}>
                           +
                       </div>
-
-                      <div className="ui inverted button">
-                          View your Photos
-                      </div>
-
+                      
                       <div className="ui inverted button" onClick={() => this.props.handleLogOut()}>
                         Log Out
                       </div>

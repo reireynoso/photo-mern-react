@@ -49,6 +49,7 @@ class App extends Component{
 
   handleAddNewPhoto = (input) => {
     // console.log(input)
+    // debugger
     const token = localStorage.getItem("token")
     if(token){
       fetch("http://localhost:3000/photos", {
@@ -63,9 +64,10 @@ class App extends Component{
     .then(resp => resp.json())
     .then(data => {
       // console.log(data)
+      // debugger
       this.setState({
+        newPhotoForm: false,
         photos: [...this.state.photos, data],
-        newPhotoForm: false
       })
     })
     }
@@ -110,7 +112,7 @@ class App extends Component{
             }
           </Fragment>
           :
-          <MainComponent handleAddNewPhoto={this.handleAddNewPhoto} photos={this.state.photos} genres={this.state.genres} currentUser={this.state.currentUser} photos={this.state.photos} newPhotoForm={this.state.newPhotoForm}/>   
+          <MainComponent  genres = {this.state.genres} handleGenreSelectFilter={this.handleGenreSelectFilter} handleAddNewPhoto={this.handleAddNewPhoto} photos={this.state.photos} genres={this.state.genres} currentUser={this.state.currentUser} photos={this.state.photos} newPhotoForm={this.state.newPhotoForm}/>   
         }
         {/* <div id="pic-container" className="ui container">
         <div class="ui three column grid">

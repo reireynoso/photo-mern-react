@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default function PhotoCard(props){
-    console.log(props)
+    // console.log(props)
     return (
         <div className="column">
             <div className="ui fluid card">
