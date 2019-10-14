@@ -8,7 +8,7 @@ function PhotoContainer(props){
             <div className="ui three column grid">
             {
                 props.photos.map(photo => {
-                    return <PhotoCard key={photo._id} photo={photo}/>
+                    return <PhotoCard key={photo._id} handleOpenModal={props.handleOpenModal} photo={photo}/>
                 })
             }
             </div>

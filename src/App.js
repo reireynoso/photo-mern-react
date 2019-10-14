@@ -4,6 +4,7 @@ import NavBar from './components/NavBar'
 import SignUpForm from './components/SignUpForm'
 import LoginForm from './components/LoginForm';
 import MainComponent from './components/MainComponent'
+import ModalDisplay from './components/ModalDisplay'
 
 class App extends Component{
   state = {
@@ -11,7 +12,9 @@ class App extends Component{
     photos: [],
     genres: [],
     viewPage: 'signUp',
-    newPhotoForm: false
+    newPhotoForm: false,
+    modalOpen: false,
+    viewPhoto: {}
   }
   
   componentDidMount = () => {
@@ -99,10 +102,64 @@ class App extends Component{
     })
   }
 
+  handlePhotoLike = (photo) => {
+    // console.log(photo)
+    photo.likes = photo.likes + 1
+    const token = localStorage.getItem("token")
+    if(token){
+      fetch(`http://localhost:3000/photo/${photo._id}/likes`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        likes: photo.likes
+      }) 
+    })
+    .then(resp => resp.json())
+    .then(data => {
+      // console.log(data)
+      // debugger
+      const updatePhoto = this.state.photos.map(photo => {
+        if(photo._id === data._id){
+          photo.likes = data.likes
+        }
+        return photo
+      })
+      this.setState({
+        photos: updatePhoto,
+      })
+    })
+    }
+  }
+
+  handleOpenModal = (photo) => {
+    // console.log(photo)
+    this.setState({
+      viewPhoto: photo,
+      modalOpen: true,
+    })
+  }
+
+  handleModalClick = (e) => {
+    if(e.target.id === "myModal"){
+      this.setState({
+        modalOpen: false
+      })
+    }
+  }
+
   render(){
-    // console.log(this.state)
     return (
     <div className="App">
+        {
+          this.state.modalOpen ?  
+          <ModalDisplay handlePhotoLike={this.handlePhotoLike} viewPhoto={this.state.viewPhoto} handleModalClick={this.handleModalClick}/>
+          : 
+          null
+        }
         <NavBar handleNewPhotoForm={this.handleNewPhotoForm} handleLogOut={this.handleLogOut} handleViewPageClick={this.handleViewPageClick} currentUser={this.state.currentUser}/>
         {
           Object.keys(this.state.currentUser).length === 0 ?
@@ -112,44 +169,8 @@ class App extends Component{
             }
           </Fragment>
           :
-          <MainComponent  genres = {this.state.genres} handleGenreSelectFilter={this.handleGenreSelectFilter} handleAddNewPhoto={this.handleAddNewPhoto} photos={this.state.photos} genres={this.state.genres} currentUser={this.state.currentUser} photos={this.state.photos} newPhotoForm={this.state.newPhotoForm}/>   
+          <MainComponent handleOpenModal={this.handleOpenModal}  genres = {this.state.genres} handleGenreSelectFilter={this.handleGenreSelectFilter} handleAddNewPhoto={this.handleAddNewPhoto} photos={this.state.photos} genres={this.state.genres} currentUser={this.state.currentUser} photos={this.state.photos} newPhotoForm={this.state.newPhotoForm}/>   
         }
-        {/* <div id="pic-container" className="ui container">
-        <div class="ui three column grid">
-  <div class="column">
-    <div class="ui fluid card">
-      <div class="image">
-        <img src="/images/avatar/large/daniel.jpg"/>>
-      </div>
-      <div class="content">
-        <a class="header">Daniel Louise</a>
-      </div>
-    </div>
-  </div>
-  <div class="column">
-    <div class="ui fluid card">
-      <div class="image">
-        <img src="/images/avatar/large/helen.jpg"/>>
-      </div>
-      <div class="content">
-        <a class="header">Helen Troy</a>
-      </div>
-    </div>
-  </div>
-  <div class="column">
-    <div class="ui fluid card">
-      <div class="image">
-        <img src="/images/avatar/large/elliot.jpg"/>>
-      </div>
-      <div class="content">
-        <a class="header">Elliot Fu</a>
-      </div>
-    </div>
-  </div>
-</div>
-</div> */}
-
-
     </div>
     )
   } 

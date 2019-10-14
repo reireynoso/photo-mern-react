@@ -32,10 +32,10 @@ export default class MainComponent extends Component {
         // console.log(this.props.currentUser)
         // console.log(photos[0].owner._id)
         if(this.state.viewUserPhotos){
-            return photos.filter(photo => photo.owner._id === this.props.currentUser._id && photo.name.includes(this.state.search) && photo.genre.name.includes(this.state.genreName))
+            return photos.filter(photo => photo.owner._id === this.props.currentUser._id && photo.name.toLowerCase().includes(this.state.search.toLowerCase()) && photo.genre.name.includes(this.state.genreName))
         }
         else{
-            return photos.filter(photo => photo.name.includes(this.state.search) && photo.genre.name.includes(this.state.genreName))
+            return photos.filter(photo => photo.name.toLowerCase().includes(this.state.search.toLowerCase()) && photo.genre.name.includes(this.state.genreName))
         }
         
     }
@@ -48,8 +48,9 @@ export default class MainComponent extends Component {
                         <NewPhotoForm handleAddNewPhoto={this.props.handleAddNewPhoto} genres={this.props.genres} currentUser={this.props.currentUser}/> 
                         :
                         <Fragment>
+                            {this.state.viewUserPhotos ? <h1>{this.props.currentUser.name}'s Photos</h1> : <h1>All Photos</h1>}
                             <Filter handleViewUserPhotos={this.handleViewUserPhotos} handleSearchFilter={this.handleSearchFilter} genres = {this.props.genres} handleGenreSelectFilter={this.handleGenreSelectFilter}/> 
-                            <PhotoContainer photos={this.filter(this.props.photos)}/>
+                            <PhotoContainer handleOpenModal={this.props.handleOpenModal} photos={this.filter(this.props.photos)}/>
                         </Fragment>
                 }
             </div>

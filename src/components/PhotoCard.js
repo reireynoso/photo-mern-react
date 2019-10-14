@@ -5,7 +5,7 @@ export default function PhotoCard(props){
     return (
         <div className="column">
             <div className="ui fluid card">
-            <div className="image">
+            <div className="image" onClick={() => props.handleOpenModal(props.photo)}>
                 <img src={props.photo.image}/>
             </div>
             <div className="content">
