@@ -8,9 +8,9 @@ export default function PhotoCard(props){
             <div className="image" onClick={() => props.handleOpenModal(props.photo)}>
                 <img src={props.photo.image}/>
             </div>
-            <div className="content">
+            {/* <div className="content">
                 <a className="header">{props.photo.owner.name}</a>
-            </div>
+            </div> */}
             </div>
         </div>
     )

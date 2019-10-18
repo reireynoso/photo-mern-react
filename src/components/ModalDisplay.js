@@ -41,9 +41,9 @@ export default function ModalDisplay(props) {
             </div>
             <h1>{props.viewPhoto.name}</h1>
             <div>
-                <img className="image" src={props.viewPhoto.image}></img>
+                <img style={{maxWidth: "90%", maxHeight: "100%"}} className="image" src={props.viewPhoto.image}></img>
             </div>
-          </div>
+            </div>
         </div>
     )
 }
