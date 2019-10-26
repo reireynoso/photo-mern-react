@@ -1,7 +1,23 @@
-import React from 'react'
+import React, {useState} from 'react'
+import {Confirm} from 'semantic-ui-react'
 
 export default function ModalDisplay(props) {
     // console.log(props.viewPhoto)
+    // console.log(props.currentUser)
+    const [open, setOpen] = useState(false)
+
+    function handleConfirm(){
+        handleDeletePhoto()
+        setOpen(false)
+    }
+    function handleCancel(){
+        setOpen(false)
+    }
+
+    function show(){
+        setOpen(true)
+    }
+
     const modal = {
         // display: "none",
         position: "fixed",
@@ -27,6 +43,11 @@ export default function ModalDisplay(props) {
         justifyContent: "space-between",
         margin: "20px"
     }
+
+    const handleDeletePhoto = () => {
+        props.handlePhotoRemove(props.viewPhoto)
+        props.handleCloseModal()
+    }
     return (
         <div onClick={props.handleModalClick} id="myModal" style={modal}>
           <div className="ui container" style={innerModal}>
@@ -35,14 +56,27 @@ export default function ModalDisplay(props) {
                     <h3>By: {props.viewPhoto.owner.name}</h3>
                 </div>
                 <div>
-                    <button onClick={() => props.handlePhotoLike(props.viewPhoto)} className="ui red button"><i className="heart icon"></i>Like</button>
+                    {
+                        props.currentUser._id === props.viewPhoto.owner._id ? 
+                        <button onClick={() => show()} className="ui red button"><i className="trash icon"></i>Delete</button>:
+                        null
+                    }
+                    <button onClick={() => props.handlePhotoLike(props.viewPhoto)} className="ui green button"><i className="heart icon"></i>Like</button>
                     <button className="ui orange button" disabled>Likes: {props.viewPhoto.likes}</button>
                 </div>
             </div>
-            <h1>{props.viewPhoto.name}</h1>
-            <div>
-                <img style={{maxWidth: "90%", maxHeight: "100%"}} className="image" src={props.viewPhoto.image}></img>
-            </div>
+                <h1>{props.viewPhoto.name}</h1>
+                <div>
+                    <img style={{maxWidth: "90%", maxHeight: "100%"}} className="image" src={props.viewPhoto.image}></img>
+                </div>
+                <span data-tooltip="Delete Course" data-position="bottom left">
+                    <Confirm
+                        open={open}
+                        header='Removing this Course.'
+                        onCancel={() => handleCancel()}
+                        onConfirm={() => handleConfirm()}
+                        />
+                </span>
             </div>
         </div>
     )

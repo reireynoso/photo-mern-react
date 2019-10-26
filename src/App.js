@@ -102,6 +102,17 @@ class App extends Component{
     })
   }
 
+  handlePhotoRemove = (photoObj) => {
+    // console.log(photo)
+    let photoRemoved = this.state.photos.filter(photo => {
+      return photo._id !== photoObj._id
+    })
+
+    this.setState({
+      photos: photoRemoved
+    })
+  }
+
   handlePhotoLike = (photo) => {
     // console.log(photo)
     photo.likes = photo.likes + 1
@@ -143,6 +154,13 @@ class App extends Component{
     })
   }
 
+  handleCloseModal = () => {
+    this.setState({
+      modalOpen: false,
+      viewPhoto: {}
+    })
+  }
+
   handleModalClick = (e) => {
     if(e.target.id === "myModal"){
       this.setState({
@@ -156,7 +174,7 @@ class App extends Component{
     <div className="App">
         {
           this.state.modalOpen ?  
-          <ModalDisplay handlePhotoLike={this.handlePhotoLike} viewPhoto={this.state.viewPhoto} handleModalClick={this.handleModalClick}/>
+          <ModalDisplay handleCloseModal={this.handleCloseModal} handlePhotoRemove={this.handlePhotoRemove} currentUser={this.state.currentUser} handlePhotoLike={this.handlePhotoLike} viewPhoto={this.state.viewPhoto} handleModalClick={this.handleModalClick}/>
           : 
           null
         }

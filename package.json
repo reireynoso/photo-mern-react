@@ -6,6 +6,7 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-scripts": "3.1.1",
+    "semantic-ui-react": "^0.88.1",
     "yarn": "^1.17.3"
   },
   "scripts": {
