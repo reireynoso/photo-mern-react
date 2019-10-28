@@ -72,8 +72,10 @@ class App extends Component{
         newPhotoForm: false,
         photos: [...this.state.photos, data],
       })
+      window.scrollTo(0,document.body.scrollHeight);
     })
     }
+   
   }
 
   handleNewPhotoForm = () => {
@@ -111,6 +113,8 @@ class App extends Component{
     this.setState({
       photos: photoRemoved
     })
+
+    
   }
 
   handlePhotoLike = (photo) => {
