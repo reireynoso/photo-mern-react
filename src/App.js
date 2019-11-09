@@ -78,6 +78,20 @@ class App extends Component{
    
   }
 
+  handleAddNewComment = (newCommentObj) => {
+    // console.log(newCommentObj)
+    const commentAddedArray = this.state.photos.map(photo => {
+      if(photo._id === newCommentObj.photo._id){
+        photo.comments = [...photo.comments, newCommentObj]
+        return photo
+      }
+      return photo
+    })
+    this.setState({
+      photos: commentAddedArray
+    })
+  }
+
   handleNewPhotoForm = () => {
     this.setState({
       newPhotoForm: !this.state.newPhotoForm
@@ -178,7 +192,7 @@ class App extends Component{
     <div className="App">
         {
           this.state.modalOpen ?  
-          <ModalDisplay handleCloseModal={this.handleCloseModal} handlePhotoRemove={this.handlePhotoRemove} currentUser={this.state.currentUser} handlePhotoLike={this.handlePhotoLike} viewPhoto={this.state.viewPhoto} handleModalClick={this.handleModalClick}/>
+          <ModalDisplay handleAddNewComment={this.handleAddNewComment} handleCloseModal={this.handleCloseModal} handlePhotoRemove={this.handlePhotoRemove} currentUser={this.state.currentUser} handlePhotoLike={this.handlePhotoLike} viewPhoto={this.state.viewPhoto} handleModalClick={this.handleModalClick}/>
           : 
           null
         }

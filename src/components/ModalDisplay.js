@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import CommentForm from './CommentForm'
 import {Confirm} from 'semantic-ui-react'
 
 export default function ModalDisplay(props) {
@@ -69,14 +70,34 @@ export default function ModalDisplay(props) {
                 <div>
                     <img style={{maxWidth: "90%", maxHeight: "100%"}} className="image" src={props.viewPhoto.image}></img>
                 </div>
-                <span data-tooltip="Delete Course" data-position="bottom left">
+                
+                <span data-tooltip="Delete Photo" data-position="bottom left">
                     <Confirm
                         open={open}
-                        header='Removing this Course.'
+                        header='Removing this Photo.'
                         onCancel={() => handleCancel()}
                         onConfirm={() => handleConfirm()}
                         />
                 </span>
+                <div style={{width: "80%", margin: "auto"}}>
+                    <CommentForm handleAddNewComment={props.handleAddNewComment} currentUser={props.currentUser} viewPhoto={props.viewPhoto}/>
+                </div>
+
+                {
+                    props.viewPhoto.comments.map(comment => {
+                        return <div key={comment._id} className="ui comments">
+                            <div className="comment">
+                                <p>{comment.content}</p>
+                            </div>
+
+                            <div className="content">
+                                <div className="author">
+                                By: {comment.user.name} | Age: {comment.user.age}
+                                </div>
+                            </div>
+                        </div>
+                    })
+                }
             </div>
         </div>
     )
