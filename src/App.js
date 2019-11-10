@@ -78,10 +78,31 @@ class App extends Component{
    
   }
 
+  handleDeleteComment = (commentObj) => {
+    console.log(commentObj)
+    const commentRemovedArray = this.state.photos.map(photo => {
+      if(photo._id === commentObj.photo){
+        console.log('match')
+        const removeCommentArr = photo.comments.filter(comment => {
+          return comment._id !== commentObj._id
+        })
+        console.log(removeCommentArr)
+        // debugger
+        photo.comments = removeCommentArr
+        return photo
+      }
+      return photo
+    })
+    // console.log(commentRemovedArray)
+    this.setState({
+      photos: commentRemovedArray
+    })
+  }
+
   handleAddNewComment = (newCommentObj) => {
-    // console.log(newCommentObj)
+    console.log(newCommentObj)
     const commentAddedArray = this.state.photos.map(photo => {
-      if(photo._id === newCommentObj.photo._id){
+      if(photo._id === newCommentObj.photo){
         photo.comments = [...photo.comments, newCommentObj]
         return photo
       }
@@ -192,7 +213,7 @@ class App extends Component{
     <div className="App">
         {
           this.state.modalOpen ?  
-          <ModalDisplay handleAddNewComment={this.handleAddNewComment} handleCloseModal={this.handleCloseModal} handlePhotoRemove={this.handlePhotoRemove} currentUser={this.state.currentUser} handlePhotoLike={this.handlePhotoLike} viewPhoto={this.state.viewPhoto} handleModalClick={this.handleModalClick}/>
+          <ModalDisplay handleDeleteComment={this.handleDeleteComment} handleAddNewComment={this.handleAddNewComment} handleCloseModal={this.handleCloseModal} handlePhotoRemove={this.handlePhotoRemove} currentUser={this.state.currentUser} handlePhotoLike={this.handlePhotoLike} viewPhoto={this.state.viewPhoto} handleModalClick={this.handleModalClick}/>
           : 
           null
         }

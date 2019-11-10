@@ -18,7 +18,7 @@ export default function PhotoCard(props){
         <div className="column">
             {/* <div style={open ? mod}> */}
                 <div className="ui fluid card">
-                    <div className="image" onClick={() => props.handleOpenModal(props.photo)}>
+                    <div className="image image-card" onClick={() => props.handleOpenModal(props.photo)}>
                         <img src={props.photo.image}/>
                     </div>
 

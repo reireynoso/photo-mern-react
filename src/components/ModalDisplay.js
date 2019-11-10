@@ -6,6 +6,8 @@ export default function ModalDisplay(props) {
     // console.log(props.viewPhoto)
     // console.log(props.currentUser)
     const [open, setOpen] = useState(false)
+    const [commentModal, setComment] = useState(false)
+    const [commentObject, setCommentObject] = useState({})
 
     function handleConfirm(){
         handleDeletePhoto()
@@ -19,8 +21,68 @@ export default function ModalDisplay(props) {
         setOpen(true)
     }
 
+    function handleOpenComment(comment){
+        console.log(commentObject)
+        setComment(true)
+        setCommentObject(comment)
+    }
+
+    function handleCloseComment(){
+        setComment(false)
+    }
+
+    const commentDiv = {
+        width: "80%",
+        margin: "auto",
+        marginTop: "2%"
+    }
+    
+    const handleDeletePhoto = () => {
+        // console.log(commentObject)
+        const token = localStorage.getItem("token")
+        fetch(`http://localhost:3000/photo`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                // "Accept": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(props.viewPhoto)
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            if(data.success){
+                props.handlePhotoRemove(props.viewPhoto)
+                props.handleCloseModal()
+            }
+            console.log(data)
+        })
+        // props.handlePhotoRemove(props.viewPhoto)
+        // props.handleCloseModal()
+    }
+
+    const handleDeleteComment = () => {
+        // console.log(commentObject)
+        const token = localStorage.getItem("token")
+        fetch(`http://localhost:3000/comment`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(commentObject)
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            if(data.success){
+                props.handleDeleteComment(commentObject)
+                setComment(false)
+            }
+            console.log(data)
+        })
+    }
     const modal = {
-        // display: "none",
         position: "fixed",
         zIndex: 1,
         left: 0,
@@ -45,10 +107,6 @@ export default function ModalDisplay(props) {
         margin: "20px"
     }
 
-    const handleDeletePhoto = () => {
-        props.handlePhotoRemove(props.viewPhoto)
-        props.handleCloseModal()
-    }
     return (
         <div onClick={props.handleModalClick} id="myModal" style={modal}>
           <div className="ui container" style={innerModal}>
@@ -82,22 +140,40 @@ export default function ModalDisplay(props) {
                 <div style={{width: "80%", margin: "auto"}}>
                     <CommentForm handleAddNewComment={props.handleAddNewComment} currentUser={props.currentUser} viewPhoto={props.viewPhoto}/>
                 </div>
-
-                {
-                    props.viewPhoto.comments.map(comment => {
-                        return <div key={comment._id} className="ui comments">
-                            <div className="comment">
-                                <p>{comment.content}</p>
-                            </div>
-
-                            <div className="content">
-                                <div className="author">
-                                By: {comment.user.name} | Age: {comment.user.age}
+                <div style={commentDiv}>
+                    <h3 className="ui dividing header">Comments</h3>
+                    <div style={{margin: "auto"}} className="ui comments">
+                    <span data-tooltip="Remove Comment" data-position="top left">
+                        <Confirm
+                            open={commentModal}
+                            header='Removing this Comment.'
+                            onCancel={handleCloseComment}
+                            onConfirm={() => handleDeleteComment()}
+                            />
+                    </span> 
+                    {
+                        props.viewPhoto.comments.length !== 0 ?
+                        props.viewPhoto.comments.map(comment => {
+                            return <div key={comment._id} className="comment">
+                                    <div className="content">
+                                        <div className="text">{comment.content}</div>
+                                        <div className="author">
+                                            By: {comment.user.name} | Age: {comment.user.age} 
+                                            {
+                                            comment.user._id === props.currentUser._id ? 
+                                            <span onClick={() => handleOpenComment(comment)}>| <i className="trash icon"></i></span>
+                                            : 
+                                            null
+                                            }
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    })
-                }
+                        })
+                        :
+                        <div className="ui segment">No Comments...yet</div>
+                    }
+                    </div>
+                </div>
             </div>
         </div>
     )
