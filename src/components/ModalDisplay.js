@@ -22,7 +22,7 @@ export default function ModalDisplay(props) {
     }
 
     function handleOpenComment(comment){
-        console.log(commentObject)
+        // console.log(commentObject)
         setComment(true)
         setCommentObject(comment)
     }

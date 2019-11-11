@@ -51,7 +51,7 @@ class App extends Component{
   }
 
   handleAddNewPhoto = (input) => {
-    // console.log(input)
+    console.log(input)
     // debugger
     const token = localStorage.getItem("token")
     if(token){
