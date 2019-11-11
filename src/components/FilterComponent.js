@@ -29,7 +29,7 @@ export default class FilterComponent extends Component {
         return (
             <div style={divStyle}>
                 <button className="ui button" style={buttonStyle} onClick={() => this.props.handleViewUserPhotos()}>View Your Photos</button>
-                <input placeholder="Search by Photo Name" style={searchBarStyle} onChange={(e) => this.props.handleSearchFilter(e.target.value)}></input>
+                <input placeholder="Search by Photo Name" style={searchBarStyle} onChange={(e) => this.props.handleSearchFilter(e.target.value.trim())}></input>
                 <select style={{width: "160px"}} onChange={this.handleOnChange}>
                     <option value="">Filter by Genre</option>
                     {this.props.genres.map(genre => {
