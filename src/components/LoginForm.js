@@ -16,7 +16,7 @@ export default class LoginForm extends Component {
 
     handleOnSubmit = (e) => {
         e.preventDefault()
-        fetch('http://localhost:3000/users/login', {
+        fetch(`${process.env.REACT_APP_URL}/users/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

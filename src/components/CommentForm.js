@@ -19,7 +19,7 @@ export default function CommentForm(props) {
         e.target.reset()
         // console.log(newCommentObj)
         const token = localStorage.getItem("token")
-        fetch(`http://localhost:3000/photo/${props.viewPhoto._id}/comments`, {
+        fetch(`${process.env.REACT_APP_URL}/photo/${props.viewPhoto._id}/comments`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

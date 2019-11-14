@@ -18,7 +18,7 @@ export default class SignUpForm extends Component {
 
     handleOnSubmit = (e) => {
         e.preventDefault()
-        fetch('http://localhost:3000/users', {
+        fetch(`${process.env.REACT_APP_URL}/users`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

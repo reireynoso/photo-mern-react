@@ -20,7 +20,7 @@ class App extends Component{
   componentDidMount = () => {
     const token = localStorage.getItem("token")
     if(token){
-      fetch("http://localhost:3000/user/auto_login",{
+      fetch(`${process.env.REACT_APP_URL}/user/auto_login`,{
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -33,7 +33,7 @@ class App extends Component{
       })
     }
 
-    fetch("http://localhost:3000/genres")
+    fetch(`${process.env.REACT_APP_URL}/genres`)
     .then(resp => resp.json())
     .then(data => {
       this.setState({
@@ -41,7 +41,7 @@ class App extends Component{
       })
     })
 
-    fetch('http://localhost:3000/photos')
+    fetch(`${process.env.REACT_APP_URL}/photos`)
     .then(res => res.json())
     .then(data => {
       this.setState({
@@ -51,11 +51,11 @@ class App extends Component{
   }
 
   handleAddNewPhoto = (input) => {
-    console.log(input)
+    // console.log(input)
     // debugger
     const token = localStorage.getItem("token")
     if(token){
-      fetch("http://localhost:3000/photos", {
+      fetch(`${process.env.REACT_APP_URL}/photos`, {
       method: "POST",
       headers: {
         // "Content-Type": "application/json",
@@ -157,7 +157,7 @@ class App extends Component{
     photo.likes = photo.likes + 1
     const token = localStorage.getItem("token")
     if(token){
-      fetch(`http://localhost:3000/photo/${photo._id}/likes`, {
+      fetch(`${process.env.REACT_APP_URL}/photo/${photo._id}/likes`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

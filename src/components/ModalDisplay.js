@@ -40,7 +40,7 @@ export default function ModalDisplay(props) {
     const handleDeletePhoto = () => {
         // console.log(commentObject)
         const token = localStorage.getItem("token")
-        fetch(`http://localhost:3000/photo`, {
+        fetch(`${process.env.REACT_APP_URL}/photo`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -64,7 +64,7 @@ export default function ModalDisplay(props) {
     const handleDeleteComment = () => {
         // console.log(commentObject)
         const token = localStorage.getItem("token")
-        fetch(`http://localhost:3000/comment`, {
+        fetch(`${process.env.REACT_APP_URL}/comment`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
@@ -79,7 +79,7 @@ export default function ModalDisplay(props) {
                 props.handleDeleteComment(commentObject)
                 setComment(false)
             }
-            console.log(data)
+            // console.log(data)
         })
     }
     const modal = {
