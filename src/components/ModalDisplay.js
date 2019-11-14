@@ -126,7 +126,7 @@ export default function ModalDisplay(props) {
             </div>
                 <h1>{props.viewPhoto.name}</h1>
                 <div>
-                    <img style={{maxWidth: "90%", maxHeight: "100%"}} className="image" src={props.viewPhoto.image}></img>
+                    <img alt="" style={{maxWidth: "90%", maxHeight: "100%"}} className="image" src={props.viewPhoto.image}></img>
                 </div>
                 
                 <span data-tooltip="Delete Photo" data-position="bottom left">

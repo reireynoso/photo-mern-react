@@ -226,7 +226,7 @@ class App extends Component{
             }
           </Fragment>
           :
-          <MainComponent handleOpenModal={this.handleOpenModal}  genres = {this.state.genres} handleGenreSelectFilter={this.handleGenreSelectFilter} handleAddNewPhoto={this.handleAddNewPhoto} photos={this.state.photos} genres={this.state.genres} currentUser={this.state.currentUser} photos={this.state.photos} newPhotoForm={this.state.newPhotoForm}/>   
+          <MainComponent handleOpenModal={this.handleOpenModal} handleGenreSelectFilter={this.handleGenreSelectFilter} handleAddNewPhoto={this.handleAddNewPhoto} genres={this.state.genres} currentUser={this.state.currentUser} photos={this.state.photos} newPhotoForm={this.state.newPhotoForm}/>   
         }
     </div>
     )
